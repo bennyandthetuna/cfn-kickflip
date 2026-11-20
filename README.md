@@ -1,18 +1,7 @@
-> [!WARNING]
-> ## This project is deprecated
->
-> **AWS CloudFormation Template Flip is no longer maintained**, including the
-> `cfn_flip` and `cfn_tools` APIs. Issues and pull requests are no longer
-> reviewed, and no further releases or security patches are planned. The
-> repository remains available read-only, and existing releases remain on
-> [PyPI](https://pypi.org/project/cfn-flip/).
->
-> For CloudFormation template work, consider the
-> [AWS CLI](https://aws.amazon.com/cli/) or [AWS CDK](https://aws.amazon.com/cdk/).
 
 ---
 
-[![Build Status](https://github.com/awslabs/aws-cfn-template-flip/actions/workflows/test.yml/badge.svg)](https://github.com/awslabs/aws-cfn-template-flip/actions/workflows/test.yml)
+[![Build Status](https://github.com/bennyandthetuna/cfn-flip/actions/workflows/test.yml/badge.svg)](https://github.com/bennyandthetuna/cfn-flip/actions/workflows/test.yml)
 [![PyPI version](https://badge.fury.io/py/cfn-flip.svg)](https://badge.fury.io/py/cfn-flip)
 [![Codecov Test Coverage](https://codecov.io/gh/awslabs/aws-cfn-template-flip/branch/master/graphs/badge.svg?style=flat)](https://codecov.io/gh/awslabs/aws-cfn-template-flip)
 

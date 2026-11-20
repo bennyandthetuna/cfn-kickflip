@@ -1,2 +1,5 @@
 AWS CloudFormation Template Flip
 Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+forked by Ben Lampert to bring this code back into active maintenance. Comments are added to each file that has been modified.
+Copyright Ben Lampert 2026.

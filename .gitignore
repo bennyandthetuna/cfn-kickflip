@@ -21,3 +21,7 @@
 
 # Env manager.
 .python-version
+
+# output tests
+coverage.xml
+output.yaml

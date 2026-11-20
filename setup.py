@@ -16,20 +16,20 @@ setup(
     description="Convert AWS CloudFormation templates between JSON and YAML formats",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/awslabs/aws-cfn-template-flip",
-    author="Steve Engledow",
-    author_email="sengledo@amazon.co.uk",
+    url="https://github.com/bennyandthetuna/cfn-flip",
+    author="Ben Lampert",
+    author_email="benjamin.j.lampert@gmail.com",
     license="Apache2",
     packages=find_packages(exclude=["tests"]),
     install_requires=[
-        "Click",
-        "PyYAML>=4.1",
-        "six",
+        "Click==8.5.1",
+        "PyYAML==6.0.3",
+        "six==1.17.0",
     ],
     tests_require=[
-        'pytest>=4.3.0', 
-        'pytest-cov',
-        'pytest-runner'
+        'pytest==9.2.0', 
+        'pytest-cov==7.1.0',
+        'pytest-runner==6.0.1'
     ],
     zip_safe=False,
     entry_points={
