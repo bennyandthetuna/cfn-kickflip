@@ -1,4 +1,4 @@
-#ruff: noqa: E501
+#ruff: noqa: E501, B904
 """
 Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
