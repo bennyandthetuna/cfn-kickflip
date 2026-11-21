@@ -5,17 +5,18 @@
 [![PyPI version](https://badge.fury.io/py/cfn-flip.svg)](https://badge.fury.io/py/cfn-flip)
 [![Codecov Test Coverage](https://codecov.io/gh/awslabs/aws-cfn-template-flip/branch/master/graphs/badge.svg?style=flat)](https://codecov.io/gh/awslabs/aws-cfn-template-flip)
 
-# AWS CloudFormation Template Flip
+# cfn-kickflip
 
 ## About
 
-AWS CloudFormation Template Flip is a tool that converts [AWS CloudFormation](https://aws.amazon.com/cloudformation/) templates between [JSON](http://json.org/) and [YAML](http://yaml.org) formats, making use of the YAML format's short function syntax where possible.
+cfn-kickflip is a modified forked version of AWS CloudFormation Template flip. It is intended as a drop-in replacement. 
+cfn-kickflip is a tool that converts [AWS CloudFormation](https://aws.amazon.com/cloudformation/) templates between [JSON](http://json.org/) and [YAML](http://yaml.org) formats, making use of the YAML format's short function syntax where possible.
 
 The term "Flip" is inspired by the well-known Unix command-line tool [flip](https://ccrma.stanford.edu/~craig/utility/flip/) which converts text files between Unix, Mac, and MS-DOS formats.
 
 ## Installation
 
-AWS CloudFormation Template Flip can be installed using [pip](https://pip.pypa.io/en/stable/):
+cfn-kickflip can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip install cfn-flip
@@ -23,9 +24,11 @@ pip install cfn-flip
 
 ## Usage
 
-AWS CloudFormation Template Flip is both a command line tool and a python library.
+cfn-kickflip is both a command line tool and a python library.
 
 Note that the command line tool is spelled `cfn-flip` with a hyphen, while the python package is `cfn_flip` with an underscore.
+From the command line, both `cfn-flip` and `cfn-kickflip` are valid entrypoints to tool execution. As a library, the function
+names are unchanged from AWS Cloudformation Template Flip.
 
 ### Command line tool
 

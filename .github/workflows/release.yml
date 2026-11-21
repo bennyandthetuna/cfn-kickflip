@@ -26,3 +26,4 @@ jobs:
           uv run --isolated --no-project --with dist/*.whl cfn_kickflip --version
           uv run --isolated --no-project --with dist/*.whl cfn_flip --version
       - uses: pypa/gh-action-pypi-publish@release/v1
+      
