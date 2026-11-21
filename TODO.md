@@ -1,3 +1,5 @@
 # To do
 
-* Use yaml.safe_load
+* add type annotations
+* yaml comment preservation for yaml->yaml flips
+* add support for AWS::LanguageExtensions
