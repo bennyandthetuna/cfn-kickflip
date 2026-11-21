@@ -1,0 +1,63 @@
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[project]
+name = "cfn-kickflip"
+version = "2.0.0"
+description = "Convert AWS Cloudformation Templates between JSON and YAML formats"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE.txt"]
+requires-python = ">=3.11"
+authors = [ 
+    {name = "Ben Lampert", email = "benjamin.j.lampert@gmail.com"}, 
+]
+keywords = ["aws", "cloudformation", "cfn", "yaml", "json", "template"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Utilities"
+]
+dependencies = [
+    "Click>=8.1", 
+    "pyyaml>6.0.1"
+]
+
+[project.scripts]
+cfn-kickflip = "cfn_flip.main:main"
+cfn-flip = "cfn_flip.main:main"
+
+[project.urls]
+Homepage = "https://github.com/bennyandthetuna/cfn-kickflip"
+Repository = "https://github.com/bennyandthetuna/cfn-kickflip"
+Issues = "https://github.com/bennyandthetuna/cfn-kickflip/issues"
+Upstream = "https://github.com/awslabs/aws-cfn-template-flip"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.9",
+]
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = ["cfn_flip", "cfn_clean", "cfn_tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
