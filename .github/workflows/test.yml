@@ -44,4 +44,4 @@ jobs:
           uv build
           uv run --isolated --no-project --with dist/*.whl python -c "import cfn_flip, cfn_clean, cfn_tools"
           uv run --isolated --no-project --with dist/*.whl cfn-kickflip --help
-          uv run --isolated --noproject --with dist/*.whl cfn-flip --help
+          uv run --isolated --no-project --with dist/*.whl cfn-flip --help
