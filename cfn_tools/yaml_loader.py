@@ -1,16 +1,29 @@
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
-    http://aws.amazon.com/apache2.0/
+Licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+    https://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-from .odict import ODict
-import six
 import yaml
+
+from .odict import ODict
 
 TAG_MAP = "tag:yaml.org,2002:map"
 UNCONVERTED_SUFFIXES = ["Ref", "Condition"]
@@ -27,7 +40,7 @@ def multi_constructor(loader, tag_suffix, node):
     """
 
     if tag_suffix not in UNCONVERTED_SUFFIXES:
-        tag_suffix = "{}{}".format(FN_PREFIX, tag_suffix)
+        tag_suffix = f"{FN_PREFIX}{tag_suffix}"
 
     constructor = None
 
@@ -40,7 +53,7 @@ def multi_constructor(loader, tag_suffix, node):
     elif isinstance(node, yaml.MappingNode):
         constructor = loader.construct_mapping
     else:
-        raise Exception("Bad tag: !{}".format(tag_suffix))
+        raise Exception(f"Bad tag: !{tag_suffix}")
 
     return ODict((
         (tag_suffix, constructor(node)),
@@ -52,12 +65,12 @@ def construct_getatt(node):
     Reconstruct !GetAtt into a list
     """
 
-    if isinstance(node.value, six.text_type):
+    if isinstance(node.value, str):
         return node.value.split(".", 1)
     elif isinstance(node.value, list):
         return [s.value for s in node.value]
     else:
-        raise ValueError("Unexpected node type: {}".format(type(node.value)))
+        raise ValueError(f"Unexpected node type: {type(node.value)}")
 
 
 def construct_mapping(self, node, deep=False):

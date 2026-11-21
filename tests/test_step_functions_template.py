@@ -1,16 +1,17 @@
-import cfn_flip
 import pytest
+
+import cfn_flip
 
 
 @pytest.fixture
 def input_json_state_machine():
-    with open("examples/test_json_state_machine.json", "r") as f:
+    with open("examples/test_json_state_machine.json") as f:
         return f.read()
 
 
 @pytest.fixture
 def output_yaml_state_machine():
-    with open("examples/test_yaml_state_machine.yaml", "r") as f:
+    with open("examples/test_yaml_state_machine.yaml") as f:
         return f.read()
 
 

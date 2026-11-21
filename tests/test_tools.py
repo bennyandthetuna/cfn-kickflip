@@ -1,26 +1,30 @@
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of the License is located at
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
-
-from cfn_tools import load_json, load_yaml, dump_json, dump_yaml, CfnYamlDumper
-from cfn_tools.odict import ODict, OdictItems
-from cfn_tools.yaml_loader import multi_constructor, construct_getatt
-from yaml import ScalarNode
 import datetime
+from io import StringIO
+
 import pytest
-import six
+from yaml import ScalarNode
+
+from cfn_tools import CfnYamlDumper, dump_json, dump_yaml, load_json, load_yaml
+from cfn_tools.odict import ODict, OdictItems
+from cfn_tools.yaml_loader import construct_getatt, multi_constructor
 
 
-class MockNode(object):
+class MockNode:
     def __init__(self, value=None):
         self.value = value
 
@@ -40,7 +44,7 @@ def test_load_json():
 
     actual = load_json(source)
 
-    assert type(actual) == ODict
+    assert type(actual) is ODict
     assert list(actual.keys()) == ["z", "m", "a"]
     assert actual["z"] == "first"
     assert actual["m"] == "middle"
@@ -61,7 +65,7 @@ a: !Ref last
 
     actual = load_yaml(source)
 
-    assert type(actual) == ODict
+    assert type(actual) is ODict
     assert list(actual.keys()) == ["z", "m", "a"]
     assert actual["z"] == "first"
     assert actual["m"] == {
@@ -80,7 +84,6 @@ def test_dump_json():
     JSON dumping just needs to know about datetimes,
     provide a nice indent, and preserve order
     """
-    import sys
 
     source = ODict((
         ("z", datetime.time(3, 45)),
@@ -96,12 +99,8 @@ def test_dump_json():
         "a": "2012-05-02T03:45:00",
     }
 
-    if sys.version_info < (3, 6):
-        fail_message = r"\(1\+1j\) is not JSON serializable"
-    elif sys.version_info < (3, 7):
-        fail_message = "Object of type 'complex' is not JSON serializable"
-    else:
-        fail_message = "Object of type complex is not JSON serializable"
+
+    fail_message = "Object of type complex is not JSON serializable"
 
     with pytest.raises(TypeError, match=fail_message):
         dump_json({
@@ -163,7 +162,7 @@ def test_represent_scalar():
       - CakeType: lie
     a: !Ref last
     """
-    yaml_dumper = CfnYamlDumper(six.StringIO(source))
+    yaml_dumper = CfnYamlDumper(StringIO(source))
     resp = yaml_dumper.represent_scalar('Key', 'value\n')
     print(resp)
     assert isinstance(resp, ScalarNode)

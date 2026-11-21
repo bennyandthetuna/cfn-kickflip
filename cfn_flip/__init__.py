@@ -1,21 +1,34 @@
+#ruff: noqa: E501
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of the License is located at
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-from .yaml_dumper import get_dumper
-from cfn_clean import clean, cfn_literal_parser
-from cfn_tools import load_json, load_yaml, dump_json
-from cfn_tools._config import config
 import yaml
+
+from cfn_clean import cfn_literal_parser, clean
+from cfn_tools import dump_json, load_json, load_yaml
+from cfn_tools._config import config
+
+from .yaml_dumper import get_dumper
 
 
 def load(template):

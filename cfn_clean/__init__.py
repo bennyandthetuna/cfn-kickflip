@@ -1,22 +1,33 @@
+#ruff: noqa: E501
 """
 Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
+
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of the License is located at
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
     https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-from cfn_tools.odict import ODict
-from cfn_tools.literal import LiteralString
-from collections.abc import KeysView
 
 import json
-import six
+from collections.abc import KeysView
+
+from cfn_tools.literal import LiteralString
+from cfn_tools.odict import ODict
 
 UNCONVERTED_KEYS = [
     # Resource Type, String Attribute to keep Json
@@ -46,7 +57,7 @@ def convert_join(value):
 
     sep, parts = value[0], value[1]
 
-    if isinstance(parts, six.string_types):
+    if isinstance(parts, str):
         return parts
 
     if not isinstance(parts, list):
@@ -84,12 +95,12 @@ def convert_join(value):
                         param_name = key
                         break
                 else:
-                    param_name = "Param{}".format(len(args) + 1)
+                    param_name = f"Param{len(args) + 1}"
                     args[param_name] = part
 
-                new_parts.append("${{{}}}".format(param_name))
+                new_parts.append(f"${{{param_name}}}")
 
-        elif isinstance(part, six.string_types):
+        elif isinstance(part, str):
             new_parts.append(part.replace("${", "${!"))
 
         else:
@@ -150,7 +161,7 @@ def cfn_literal_parser(source):
                         if source.get("Properties") and source.get("Properties", {}).get(item[1]):
                             if isinstance(source["Properties"][item[1]], dict) and \
                                     not has_intrinsic_functions(source["Properties"][item[1]].keys()):
-                                source["Properties"][item[1]] = LiteralString(u"{}".format(json.dumps(
+                                source["Properties"][item[1]] = LiteralString("{}".format(json.dumps(
                                     source["Properties"][item[1]],
                                     indent=2,
                                     separators=(',', ': '))

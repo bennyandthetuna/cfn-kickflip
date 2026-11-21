@@ -1,24 +1,31 @@
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License.
+You may not use this file except in compliance with the License. 
 A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-import six
-
 from cfn_clean.yaml_dumper import CleanCfnYamlDumper
+from cfn_tools._config import config
 from cfn_tools.literal import LiteralString
 from cfn_tools.odict import ODict
 from cfn_tools.yaml_dumper import CfnYamlDumper
-from cfn_tools._config import config
 
 TAG_STR = "tag:yaml.org,2002:str"
 TAG_MAP = "tag:yaml.org,2002:map"
@@ -28,7 +35,8 @@ FN_PREFIX = "Fn::"
 
 # Maximum length of a string before switching to angle-bracket-style representation
 STR_MAX_LENGTH_QUOTED = config.max_col_width
-# Maximum number of newlines a string can have before switching to pipe-style representation
+# Maximum number of newlines a string can have 
+# before switching to pipe-style representation
 STR_MAX_LINES_QUOTED = 10
 
 
@@ -74,7 +82,7 @@ def string_representer(dumper, value):
 
 
 def fn_representer(dumper, fn_name, value):
-    tag = "!{}".format(fn_name)
+    tag = f"!{fn_name}"
 
     if tag == "!GetAtt" and isinstance(value, list):
         value = ".".join(value)
@@ -109,7 +117,7 @@ def map_representer(dumper, value):
 
 # Customise our dumpers
 Dumper.add_representer(ODict, map_representer)
-Dumper.add_representer(six.text_type, string_representer)
+Dumper.add_representer(str, string_representer)
 Dumper.add_representer(LiteralString, literal_unicode_representer)
 CleanDumper.add_representer(LiteralString, literal_unicode_representer)
 CleanDumper.add_representer(ODict, map_representer)

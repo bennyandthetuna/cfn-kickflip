@@ -1,20 +1,38 @@
+#ruff: noqa: E501
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of the License is located at
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-from . import flip
-import click
 import sys
+from importlib.metadata import PackageNotFoundError, version
 
+import click
+
+from . import flip
+
+try: 
+    __version__ = version("cfn_kickflip")
+except PackageNotFoundError:
+    __version__ = "0.0.0+unknown"
 
 @click.command()
 @click.option("--input", "-i", "in_format", type=click.Choice(["json", "yaml"]), help="Specify the input format. Overrides -j and -y flags.")
@@ -26,7 +44,10 @@ import sys
 @click.option("--no-flip", "-n", is_flag=True, help="Perform other operations but do not flip the output format.")
 @click.argument("input", type=click.File("r"), default=sys.stdin)
 @click.argument("output", type=click.File("w"), default=sys.stdout)
-@click.version_option(message='AWS Cloudformation Template Flip, Version %(version)s')
+@click.version_option(
+    version=__version__,
+    message='AWS Cloudformation Template Flip, Version %(version)s'
+)
 @click.pass_context
 def main(ctx, **kwargs):
     """
@@ -63,4 +84,5 @@ def main(ctx, **kwargs):
         )
         output_file.write(flipped)
     except Exception as e:
-        raise click.ClickException("{}".format(e))
+        raise click.ClickException(f"{e}") from e
+    

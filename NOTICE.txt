@@ -1,5 +1,9 @@
 AWS CloudFormation Template Flip
 Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-forked by Ben Lampert to bring this code back into active maintenance. Comments are added to each file that has been modified.
-Copyright Ben Lampert 2026.
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging

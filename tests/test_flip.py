@@ -1,21 +1,33 @@
+#ruff: noqa: E501
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of the License is located at
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
-from cfn_tools import dump_json, load_json, load_yaml
-from cfn_tools.odict import ODict
-import cfn_flip
 import pytest
 import yaml
+
+import cfn_flip
+from cfn_tools import dump_json, load_json, load_yaml
+from cfn_tools.odict import ODict
 
 try:
     from json import JSONDecodeError
@@ -26,67 +38,67 @@ except ImportError:
 
 @pytest.fixture
 def input_json():
-    with open("examples/test.json", "r") as f:
+    with open("examples/test.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def input_long_json():
-    with open("examples/test_long.json", "r") as f:
+    with open("examples/test_long.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def input_json_with_literal():
-    with open("examples/test_json_data.json", "r") as f:
+    with open("examples/test_json_data.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def input_json_with_def_string_with_sub():
-    with open("examples/test_json_def_string_with_sub.json", "r") as f:
+    with open("examples/test_json_def_string_with_sub.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def input_json_with_long_line():
-    with open("examples/test_json_data_long_line.json", "r") as f:
+    with open("examples/test_json_data_long_line.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def input_yaml_with_def_string_with_sub():
-    with open("examples/test_yaml_def_string_with_sub.yaml", "r") as f:
+    with open("examples/test_yaml_def_string_with_sub.yaml") as f:
         return f.read()
 
 
 @pytest.fixture
 def input_yaml():
-    with open("examples/test.yaml", "r") as f:
+    with open("examples/test.yaml") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def clean_json():
-    with open("examples/clean.json", "r") as f:
+    with open("examples/clean.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def clean_yaml():
-    with open("examples/clean.yaml", "r") as f:
+    with open("examples/clean.yaml") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def multibyte_json():
-    with open("examples/test_multibyte.json", "r") as f:
+    with open("examples/test_multibyte.json") as f:
         return f.read().strip()
 
 
 @pytest.fixture
 def multibyte_yaml():
-    with open("examples/test_multibyte.yaml", "r") as f:
+    with open("examples/test_multibyte.yaml") as f:
         return f.read().strip()
 
 
@@ -139,10 +151,6 @@ def bad_data():
 
 @pytest.fixture
 def fail_message():
-    import six
-
-    if six.PY2:
-        return "No JSON object could be decoded"
     return "Expecting value: line 1 column 1"
 
 
@@ -605,7 +613,7 @@ def test_unconverted_types():
             fn: "something"
         })
 
-        expected = "{} 'something'\n".format(tag)
+        expected = f"{tag} 'something'\n"
 
         assert cfn_flip.to_yaml(value) == expected
 
