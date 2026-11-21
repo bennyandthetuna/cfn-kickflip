@@ -1,22 +1,47 @@
-"""Configuration file for cfn_flip."""
+#ruff: noqa: E501
+"""
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
+
+Licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License. 
+A copy of the License is located at
+
+    https://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions 
+and limitations under the License.
+"""
 import inspect
 import logging
 import os
-from typing import Any, Dict, NamedTuple, Optional, Type
+from typing import Any, NamedTuple
 
 _logger: logging.Logger = logging.getLogger(__name__)
 
 
 class _ConfigArg(NamedTuple):
-    dtype: Type
+    dtype: type
     nullable: bool = True
     has_default: bool = False
     default: Any = None
 
 
-_CONFIG_DEFAULTS: Dict[str, _ConfigArg] = {
-    "max_col_width": _ConfigArg(dtype=int, nullable=False, has_default=True, default=200)}
+_CONFIG_DEFAULTS: dict[str, _ConfigArg] = {
+    "max_col_width": _ConfigArg(dtype=int, 
+                                nullable=False, 
+                                has_default=True, 
+                                default=200
+                                )}
 
 
 class _Config:
@@ -30,10 +55,13 @@ class _Config:
 
     def _load_config(self, name, conf):
         env_var_name: str = f"CFN_{name.upper()}"
-        env_var: Optional[str] = os.getenv(env_var_name)
+        env_var: str | None = os.getenv(env_var_name)
         if env_var is not None:
             value = self._apply_type(
-                name=name, value=env_var, dtype=_CONFIG_DEFAULTS[name].dtype, nullable=_CONFIG_DEFAULTS[name].nullable
+                name=name, 
+                value=env_var, 
+                dtype=_CONFIG_DEFAULTS[name].dtype, 
+                nullable=_CONFIG_DEFAULTS[name].nullable
             )
             self.__setattr__(name, value)
         elif conf.has_default is True:
@@ -53,11 +81,14 @@ class _Config:
                 f"{key} is not a valid configuration. " f"Please use: {list(_CONFIG_DEFAULTS.keys())}"
             )
         value = self._apply_type(
-            name=key, value=value, dtype=_CONFIG_DEFAULTS[key].dtype, nullable=_CONFIG_DEFAULTS[key].nullable
+            name=key, 
+            value=value, 
+            dtype=_CONFIG_DEFAULTS[key].dtype, 
+            nullable=_CONFIG_DEFAULTS[key].nullable
         )
         super().__setattr__(f"_{key}", value)
 
-    def reset(self, item: Optional[str] = None) -> None:
+    def reset(self, item: str | None = None) -> None:
         """Reset one or all (if None is received) configuration values.
 
         Parameters
@@ -86,7 +117,7 @@ class _Config:
             self._load_config(name=item, conf=_CONFIG_DEFAULTS[item])
 
     @staticmethod
-    def _apply_type(name: str, value: Any, dtype: Type, nullable: bool) -> Any:
+    def _apply_type(name: str, value: Any, dtype: type, nullable: bool) -> Any:
         if _Config._is_null(value=value) is True:
             if nullable is True:
                 return None

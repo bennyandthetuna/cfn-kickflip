@@ -1,19 +1,29 @@
+#ruff: noqa: E501
 """
-Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+---
+cfn-kickflip
+Copyright 2026 Ben Lampert
+This product is a modified fork of AWS CloudFormation Template Flip
+(https://github.com/awslabs/aws-cfn-template-flip), updates for modern
+Python runtimes and packaging
 
 Licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License.
+You may not use this file except in compliance with the License. 
 A copy of the License is located at
 
-    http://aws.amazon.com/apache2.0/
+    https://aws.amazon.com/apache2.0/
 
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS,
+or in the "license" file accompanying this file. 
+This file is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
+See the License for the specific language governing permissions 
+and limitations under the License.
 """
 
 import re
-import six
+
 import yaml
 from yaml.emitter import Emitter, ScalarAnalysis
 
@@ -35,7 +45,7 @@ class CfnEmitter(Emitter):
                                   allow_flow_plain=False, allow_block_plain=True,
                                   allow_single_quoted=True, allow_double_quoted=True,
                                   allow_block=True)
-        return super(CfnEmitter, self).analyze_scalar(scalar)
+        return super().analyze_scalar(scalar)
 
 
 class CfnYamlDumper(yaml.Dumper, CfnEmitter):
@@ -46,19 +56,19 @@ class CfnYamlDumper(yaml.Dumper, CfnEmitter):
     """
 
     def increase_indent(self, flow=False, indentless=False):
-        return super(CfnYamlDumper, self).increase_indent(flow, False)
+        return super().increase_indent(flow, False)
 
     def represent_scalar(self, tag, value, style=None):
         if re.match(AWS_ACCOUNT_ID, value):
             style = "\'"
 
-        if isinstance(value, six.text_type):
+        if isinstance(value, str):
             if any(eol in value for eol in "\n\r") and style is None:
                 style = "\""
 
             # return super(CfnYamlDumper, self).represent_scalar(TAG_STRING, value, style)
 
-        return super(CfnYamlDumper, self).represent_scalar(tag, value, style)
+        return super().represent_scalar(tag, value, style)
 
 
 def string_representer(dumper, value):
@@ -85,4 +95,4 @@ def literal_unicode_representer(dumper, value):
 # Customise the dumper
 CfnYamlDumper.add_representer(ODict, map_representer)
 CfnYamlDumper.add_representer(LiteralString, literal_unicode_representer)
-CfnYamlDumper.add_representer(six.text_type, string_representer)
+CfnYamlDumper.add_representer(str, string_representer)
