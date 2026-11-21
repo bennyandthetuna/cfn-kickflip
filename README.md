@@ -19,21 +19,21 @@ The term "Flip" is inspired by the well-known Unix command-line tool [flip](http
 cfn-kickflip can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-pip install cfn-flip
+pip install cfn-kickflip
 ```
 
 ## Usage
 
 cfn-kickflip is both a command line tool and a python library.
 
-Note that the command line tool is spelled `cfn-flip` with a hyphen, while the python package is `cfn_flip` with an underscore.
+Note that the command line tool is spelled `cfn-kickflip` with a hyphen, while the python package is `cfn_flip` with an underscore.
 From the command line, both `cfn-flip` and `cfn-kickflip` are valid entrypoints to tool execution. As a library, the function
 names are unchanged from AWS Cloudformation Template Flip.
 
 ### Command line tool
 
 ```
-Usage: cfn-flip [OPTIONS] [INPUT] [OUTPUT]
+Usage: cfn-kickflip [OPTIONS] [INPUT] [OUTPUT]
 
   AWS CloudFormation Template Flip is a tool that converts AWS
   CloudFormation templates between JSON and YAML formats, making use of the
@@ -64,25 +64,25 @@ Examples:
 * Reading from `stdin` and outputting to `stdout`:
 
     ```bash
-    cat examples/test.json | cfn-flip
+    cat examples/test.json | cfn-kickflip
     ```
 
 * Reading from a file and outputting to `stdout`:
 
     ```bash
-    cfn-flip examples/test.yaml
+    cfn-kickflip examples/test.yaml
     ```
 
 * Reading from a file and outputting to another file:
 
     ```bash
-    cfn-flip examples/test.json output.yaml
+    cfn-kickflip examples/test.json output.yaml
     ```
 
 * Reading from a file and cleaning up the output
 
     ```bash
-    cfn-flip -c examples/test.json
+    cfn-kickflip -c examples/test.json
     ```
 
 ### Python package
